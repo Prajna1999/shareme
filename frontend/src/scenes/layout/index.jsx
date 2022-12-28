@@ -7,7 +7,7 @@ function Layout() {
     <div>
       <h1 className="text-3xl">Layout</h1>
 
-      <Outlet />
+      {/* <Outlet /> */}
     </div> 
   );
 }
