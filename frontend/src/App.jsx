@@ -4,36 +4,28 @@ import {
   Navigate,
   Route,
   RouterProvider,
-  useRouteError
-}
-from "react-router-dom";
+  useRouteError,
+} from "react-router-dom";
 
-import Layout from "./scenes/layout";
-import './App.css'
+import {Layout} from "./scenes/barrel";
+import {Login} from "./components/barrel"
+import "./App.css";
 
-function ErrorBoundary(){
-  let error=useRouteError();
+function ErrorBoundary() {
+  let error = useRouteError();
 
-  return <h2>{`Oops! ${error} `}</h2>
+  return <h2>{`Oops! ${error} `}</h2>;
 }
 
 export default function App() {
-
-  const router=createBrowserRouter(
+  const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout />} errorElement={<ErrorBoundary />}>
-
-        {/* declare scene routes */}
-
-
-
+        
+        <Route path="login" element={<Login />}/>
+        
       </Route>
     )
-  )
-  return (
-    
-    <RouterProvider router={router} />
-  )
+  );
+  return <RouterProvider router={router} />;
 }
-
-
