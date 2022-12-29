@@ -40,8 +40,8 @@ const Login = () => {
                                     Sign in with Google
                                 </button>
                             }}
-                            onSuccess={handleSuccess}
-                            onFailure={handleFailure}
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
                             cookiePolicy="single_host_origin"
                         />
                     </div>
