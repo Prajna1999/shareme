@@ -1,11 +1,29 @@
 import React from 'react'
 import GoogleLogin from "react-google-login";
-import {useNavigate} from "react-router-dom";
+import {json, Navigate, useNavigate} from "react-router-dom";
 import {FcGoogle} from "react-icons/fc";
 import shareVideo from "../assets/share.mp4";
-
+import {client} from "../client.js";
 import logo from "../assets/logoWhite.png";
 const Login = () => {
+
+    const responseGoogle=(response)=>{
+       localStorage.setItem('user', JSON.stringify(response.profileObj));
+
+       const {name, googleId, imageUrl}=response.profileObj;
+        const navigate=useNavigate();
+       const doc={
+        _id:googleId,
+        _type:'user',
+        userName:name,
+        Image:imageUrl
+       }
+       
+       client.createIfNotExists(doc)
+        .then(()=>{
+            navigate('/', {replace:true})
+        })
+    }
   return (
     <div className='flex justify-start items-center flex-col h-screen'>
         <div className='relative w-full h-full'>
@@ -26,7 +44,8 @@ const Login = () => {
 
                     <div className='shadow 2-xl'>
                         <GoogleLogin
-                            clientId=''
+                            // clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
+                            clientId='122004741888-ev0kv8qhktr6jevig8a8at43kclho2mk.apps.googleusercontent.com'
                             render={(renderProps)=>{
                                 <button
                                     type='button'
